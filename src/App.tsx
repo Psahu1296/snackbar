@@ -1,15 +1,27 @@
-import { motion } from 'framer-motion';
 import { useState } from 'react';
 
-import { Box, Button, Flex, Image, Link, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, useColorMode } from '@chakra-ui/react';
 
+import Snackbar from './components/snackbar/Snackbar';
 import ThemeToggleButton from './components/ThemeToggleButton';
-import logo from './logo.svg';
 
-const textFontSizes = [16, 18, 24, 30];
+function MyButton() {
+  const { colorMode } = useColorMode();
+  return (
+    <button
+      type="button"
+      data-testid="action-btn"
+      className={`action-btn ${colorMode === 'light' && 'action-text-light'}`}
+    >
+      Action
+    </button>
+  );
+}
+const text2 = 'Lorem ipsum dolor sit amet consectetur adipisicing elit.';
 
 function App(): JSX.Element {
-  const [count, setCount] = useState(0);
+  const [open, setOpen] = useState<boolean>(false);
+  const [open2, setOpen2] = useState<boolean>(false);
 
   return (
     <Box>
@@ -21,55 +33,32 @@ function App(): JSX.Element {
         h="100vh"
         fontSize="3xl"
       >
-        <motion.div
-          animate={{ rotateZ: 360 }}
-          transition={{
-            repeat: Infinity,
-            duration: 20,
-            ease: 'linear',
-          }}
+        <Snackbar
+          open={open}
+          autoCloseTime={3000}
+          align="top-left"
+          type="action"
+          actionProps={<MyButton />}
+          onclose={setOpen}
         >
-          <Image src={logo} alt="" h="40vmin" />
-        </motion.div>
-        <Text fontSize={textFontSizes}>
-          Hello Vite + React + Typescript + Chakra UI!
-        </Text>
-        <Button
-          colorScheme="blue"
-          fontSize={textFontSizes}
-          onClick={() => setCount((c) => c + 1)}
-          marginTop="2"
-        >
-          count is: {count}
+          <b>warning text- 1</b>
+        </Snackbar>
+        <Button data-testid="open-button" onClick={() => setOpen(true)}>
+          Open snackbar
         </Button>
-        <Text fontSize={textFontSizes}>
-          Edit <code>App.tsx</code> and save to test HMR updates.
-        </Text>
-        <Text fontSize={textFontSizes}>
-          <Link href="https://reactjs.org" isExternal color="#61dafb">
-            Learn React
-          </Link>
-          {' | '}
-          <Link
-            href="https://vitejs.dev/guide/features.html"
-            isExternal
-            color="#61dafb"
-          >
-            Vite Docs
-          </Link>
-          {' | '}
-          <Link
-            href="https://www.typescriptlang.org/"
-            isExternal
-            color="#61dafb"
-          >
-            Typescript
-          </Link>
-          {' | '}
-          <Link href="https://chakra-ui.com" isExternal color="#61dafb">
-            Chakra UI
-          </Link>
-        </Text>
+        <Snackbar
+          open={open2}
+          autoCloseTime={7000}
+          align="top-right"
+          type="action-long"
+          onclose={setOpen2}
+          actionProps={<MyButton />}
+        >
+          {text2}
+        </Snackbar>
+        <Button onClick={() => setOpen2(true)} marginTop="15px">
+          Open snackbar right
+        </Button>
       </Flex>
       <ThemeToggleButton pos="fixed" bottom="2" right="2" />
     </Box>

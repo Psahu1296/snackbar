@@ -18,7 +18,7 @@
     "pretest": "yarn lint:fix",
     "test": "jest --colors --passWithNoTests",
     "posttest": "npx http-server coverage/lcov-report",
-    "test:watch": "yarn test --collectCoverage=false --watch",
+    "test:watch": "yarn jest --collectCoverage=false --watch",
     "prepare": "husky install",
     "cz": "cz"
   },
@@ -27,7 +27,8 @@
     "@chakra-ui/react": "^2.4.9",
     "@emotion/react": "^11.8.1",
     "@emotion/styled": "^11.8.1",
-    "framer-motion": "^8.5.2",
+    "framer-motion": "^10.13.0",
+    "jest-environment-jsdom": "^29.6.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
