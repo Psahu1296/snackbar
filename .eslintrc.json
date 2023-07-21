@@ -39,6 +39,7 @@
     "react/jsx-props-no-spreading": "off",
     "linebreak-style": "off",
     "eol-last": "off",
+    "react/require-default-props": "off",
     "max-len": ["warn", { "code": 80 }],
     "import/extensions": ["error", "never", { "svg": "always" }],
     "prettier/prettier": [
