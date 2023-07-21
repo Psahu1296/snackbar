@@ -1,10 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
-
+import React, { useEffect, useRef } from 'react';
 import { useColorMode } from '@chakra-ui/react';
-
-import { closeDark, closeWhite } from '../../assets';
-
 import './snackbar.css';
+import { CloseIcon } from '@chakra-ui/icons';
 
 interface SnackbarProps {
   type?: 'action' | 'action-long';
@@ -24,7 +21,7 @@ interface SnackbarProps {
 }
 
 function Snackbar({
-  type = undefined,
+  type,
   open,
   autoCloseTime = 3000,
   canBeClosed = true,
@@ -34,14 +31,11 @@ function Snackbar({
   onclose,
 }: SnackbarProps) {
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const [isOpen, setisopen] = useState<boolean>(open);
   const { colorMode } = useColorMode();
 
   useEffect(() => {
-    setisopen(false);
     if (open) {
       timerRef.current = setTimeout(() => onclose(false), autoCloseTime);
-      setisopen(true);
       return;
     }
     if (timerRef && timerRef.current) {
@@ -57,7 +51,7 @@ function Snackbar({
 
   return (
     <div>
-      {isOpen && (
+      {open && (
         <div
           data-testid="snackbar-component"
           className={`wrapper ${align} ${
@@ -83,19 +77,7 @@ function Snackbar({
                 }`}
                 onClick={() => onclose(false)}
               >
-                {colorMode === 'dark' ? (
-                  <img
-                    src={closeWhite}
-                    alt="close-icon"
-                    className="close-icon"
-                  />
-                ) : (
-                  <img
-                    src={closeDark}
-                    alt="close-icon"
-                    className="close-icon"
-                  />
-                )}
+                <CloseIcon margin="0px" height="16px" width="16px" />
               </button>
             )}
           </div>

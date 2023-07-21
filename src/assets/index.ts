@@ -1,4 +1,4 @@
 import closeDark from './close-dark.svg';
-import closeWhite from './close-white.svg';
+import CloseWhite from './close-white.svg';
 
-export { closeDark, closeWhite };
+export { closeDark, CloseWhite };

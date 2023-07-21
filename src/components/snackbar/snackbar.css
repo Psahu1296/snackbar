@@ -110,7 +110,8 @@ button {
 
 .close-btn {
   border: none;
-  padding: 8px;
+  height: 45px;
+  width: 45px;
   border-radius: 100px;
   order: -1;
 }
